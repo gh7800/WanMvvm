@@ -4,22 +4,36 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author GF63
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatActivity implements LifecycleOwner {
 
 	protected abstract int getLayoutId();
-	protected abstract int initViewModel();
 	protected abstract void initView();
+	protected abstract T getViewModel();
+
+	protected T viewModel;
+	private Unbinder unbinder;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		getLayoutId();
-		initViewModel();
+		setContentView(getLayoutId());
+		unbinder = ButterKnife.bind(this);
 		initView();
+
+		viewModel = getViewModel();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unbinder.unbind();
 	}
 }

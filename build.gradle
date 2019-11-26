@@ -1,6 +1,39 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext {
+        compileSdkVersion = 28
+        minSdkVersion = 17
+        targetSdkVersion = 28
+        supportVersion = '28.0.0'
+
+        lifecycle_version = "2.1.0"
+        androidx_appcompad = '1.1.0'
+        androidx_constraintlayout = '1.1.3'
+
+        retrofit = '2.4.0'
+        rxjava = '2.2.7'
+        rxandroid = '2.1.0'
+        converter_gson = '2.4.0'
+        adapter_rxjava = '2.4.0'
+        okhttp = '3.12.1'
+        logging_interceptor = '3.12.1'
+
+        arouterApi = '1.5.0'
+        arouter = '1.2.2'
+        butterKnife = '10.2.0'
+        eventBus = '3.1.1'
+        glide = '3.7.0'
+        greendao = '3.2.2'
+
+        autosize = '1.1.2'                          //适配
+        MNProgressHUD = 'V1.1.8'
+        banner = '1.4.10'
+        BaseRecyclerViewAdapterHelper = '2.9.47-androidx'
+        agentweb = '4.1.2'                          //webView
+        flowlayoutlib = '1.1.2'                     //tagLayout
+    }
+
     repositories {
         google()
         jcenter()
@@ -8,7 +41,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
-        
+        classpath "com.jakewharton:butterknife-gradle-plugin:$butterKnife"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -18,7 +52,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url "https://jitpack.io" }
     }
 }
 
