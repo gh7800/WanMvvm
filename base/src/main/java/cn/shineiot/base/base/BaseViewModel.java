@@ -1,19 +1,13 @@
 package cn.shineiot.base.base;
 
-import android.app.Application;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.ViewModel;
 
 /**
  * @author GF63
  */
-public class BaseViewModel<T extends BaseRepository> extends AndroidViewModel {
-
-	public BaseViewModel(@NonNull Application application) {
-		super(application);
-	}
+public class BaseViewModel<T extends BaseRepository> extends ViewModel {
 
 	@Override
 	protected void onCleared() {

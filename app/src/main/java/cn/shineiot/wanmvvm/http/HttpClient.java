@@ -3,6 +3,7 @@ package cn.shineiot.wanmvvm.http;
 import androidx.lifecycle.LiveData;
 
 import cn.shineiot.base.base.BaseResult;
+import cn.shineiot.base.manager.HttpManager;
 import cn.shineiot.base.utils.HttpUrl;
 import cn.shineiot.wanmvvm.bean.User;
 import retrofit2.Retrofit;
@@ -15,9 +16,11 @@ import retrofit2.http.POST;
 public interface HttpClient {
 
 	public static HttpClient getInstance(){
-		return new Retrofit.Builder().baseUrl(HttpUrl.BASE_URL)
-				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+		return new Retrofit.Builder()
+				.baseUrl(HttpUrl.BASE_URL)
+				.client(HttpManager.getOkHttpClient())
 				.addConverterFactory(GsonConverterFactory.create())
+				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.build()
 				.create(HttpClient.class);
 	}

@@ -3,6 +3,7 @@ package cn.shineiot.wanmvvm.ui.home;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.View;
 import cn.shineiot.base.base.BaseActivity;
 import cn.shineiot.wanmvvm.R;
 import cn.shineiot.wanmvvm.bean.User;
+import cn.shineiot.wanmvvm.ui.login.LoginActivity;
 
 /**
  * @author GF63
@@ -41,12 +43,15 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 	}
 
 	public void onClick(View view){
-		viewModel.getUser().observe(this,new Observer<User>() {
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+
+		/*viewModel.getUser().observe(this,new Observer<User>() {
 			@Override
 			public void onChanged(User user) {
 				Log.e("tag",user.getNickname());
 			}
-		});
+		});*/
 	}
 
 	@Override

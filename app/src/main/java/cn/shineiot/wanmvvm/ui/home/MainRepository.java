@@ -12,16 +12,16 @@ public class MainRepository {
 	public MutableLiveData<User> liveData = new MutableLiveData<>();
 
 	public MutableLiveData<User> getData(){
-		HttpClient.getInstance().getBanner().observeForever(user -> {
+//		HttpClient.getInstance().getBanner().observeForever(user -> {
+//
+//		});
 
-		});
-
-//		Handler handler = new Handler();
-//		handler.postDelayed(() -> {
-//			User user = new User();
-//			user.setName("Xiao Hong");
-//			liveData.setValue(user);
-//		}, 10000);
+		Handler handler = new Handler();
+		handler.postDelayed(() -> {
+			User user = new User();
+			user.setNickname("Xiao Hong");
+			liveData.setValue(user);
+		}, 10000);
 		return liveData;
 	}
 }
