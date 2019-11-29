@@ -12,7 +12,7 @@ import butterknife.Unbinder;
 /**
  * @author GF63
  */
-public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatActivity implements LifecycleOwner {
+public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatActivity {
 
 	protected abstract int getLayoutId();
 	protected abstract void initView();
@@ -24,8 +24,9 @@ public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatAct
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		ButterKnife.bind(this);
 		setContentView(getLayoutId());
-		unbinder = ButterKnife.bind(this);
 		initView();
 
 		viewModel = getViewModel();
@@ -34,6 +35,6 @@ public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatAct
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		unbinder.unbind();
+//		unbinder.unbind();
 	}
 }

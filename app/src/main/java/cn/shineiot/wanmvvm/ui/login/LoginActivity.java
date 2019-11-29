@@ -19,9 +19,9 @@ import cn.shineiot.wanmvvm.bean.User;
  * @author GF63
  */
 public class LoginActivity extends BaseActivity<LoginViewModel> implements LifecycleOwner {
-	@BindView(R.id.username)
+//	@BindView(R.id.username)
 	EditText etUsername;
-	@BindView(R.id.password)
+//	@BindView(R.id.password)
 	EditText etPassword;
 
 	@Override
@@ -31,10 +31,13 @@ public class LoginActivity extends BaseActivity<LoginViewModel> implements Lifec
 
 	@Override
 	protected void initView() {
-
+		etUsername = findViewById(R.id.username);
+		etPassword = findViewById(R.id.password);
 	}
 
-	public void onClick(View view){
+	public void onClickView(View view){
+		Log.e("tag","pnclick"+etUsername);
+
 		if(TextUtils.isEmpty(etUsername.getText())){
 			ToastUtils.showToast("请输入账号");return;
 		}else if(TextUtils.isEmpty(etPassword.getText())){

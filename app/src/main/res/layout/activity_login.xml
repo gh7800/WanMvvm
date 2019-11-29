@@ -10,7 +10,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,21 +19,22 @@
         android:background="@drawable/icon_logo"
         android:layout_marginTop="@dimen/dp_100"
         />
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48"
         android:hint="请输入账号..."
         android:text="请输入用户名"
+        android:inputType="text"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
-        android:paddingLeft="@dimen/dp_24"
+        android:paddingStart="@dimen/dp_24"
         android:background="@drawable/selector_edittext"
         android:layout_marginBottom="@dimen/dp_24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/password" />
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48"
@@ -42,17 +43,17 @@
         android:text="pw100861"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
-        android:paddingLeft="@dimen/dp_24"
+        android:paddingStart="@dimen/dp_24"
         android:background="@drawable/selector_edittext"
         android:hint="请输入密码..."
         app:layout_constraintBottom_toTopOf="@+id/loginBt" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginBt"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48"
-        android:text="登         录"
-        android:onClick="onClick"
+        android:text="登       录"
+        android:onClick="onClickView"
         android:textColor="@color/white"
         android:background="@drawable/selector_button"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -15,12 +15,13 @@ import retrofit2.http.POST;
 
 public interface HttpClient {
 
-	public static HttpClient getInstance(){
+	 static HttpClient getInstance(){
+		LiveDataCallAdapterFactory factory = new LiveDataCallAdapterFactory();
 		return new Retrofit.Builder()
 				.baseUrl(HttpUrl.BASE_URL)
 				.client(HttpManager.getOkHttpClient())
 				.addConverterFactory(GsonConverterFactory.create())
-				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+				.addCallAdapterFactory(factory)
 				.build()
 				.create(HttpClient.class);
 	}
