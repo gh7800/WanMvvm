@@ -109,7 +109,7 @@ public class HttpManager {
 	/**配置OkHttpClient*/
 	public static OkHttpClient getOkHttpClient() {
 		if (!NetworkUtils.isConnected()) {
-			ToastUtils.showErrorToast( "没有网络，请检查网络设置！");
+			//ToastUtils.showErrorToast( "没有网络，请检查网络设置！");
 		}
 		
 		if (sOkHttpClient == null) {
@@ -128,16 +128,17 @@ public class HttpManager {
 
 					logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-					sOkHttpClient = new OkHttpClient.Builder().cache(cache)
+					sOkHttpClient = new OkHttpClient.Builder()
+							//.cache(cache)
 							.addNetworkInterceptor(REWRITE_RESPONSE_INTERCEPTOR)
 							.addInterceptor(REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
 							//.addInterceptor(mLoggingInterceptor)
 							.addInterceptor(logInterceptor)
 							.addInterceptor(headerInterceptor)
 							.retryOnConnectionFailure(true)
-							.connectTimeout(30, TimeUnit.SECONDS)
-							.readTimeout(30, TimeUnit.SECONDS)
-							.writeTimeout(30, TimeUnit.SECONDS)
+							.connectTimeout(10, TimeUnit.SECONDS)
+							.readTimeout(10, TimeUnit.SECONDS)
+							.writeTimeout(10, TimeUnit.SECONDS)
 							.cookieJar(new CookieManager(BaseApplication.context())
 							).build();
 

@@ -13,19 +13,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author wangs
  */
 public class HttpClient {
+	private static Retrofit retrofit;
 
     public static Retrofit getInstace() {
         if (!NetworkUtils.isConnected()) {
-            ToastUtils.showErrorToast( "没有网络，请检查网络设置！");
+            //ToastUtils.showErrorToast( "没有网络，请检查网络设置！");
         }
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HttpUrl.BASE_URL)
-                .client(HttpManager.getOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
+		if(retrofit == null){
+			synchronized (HttpClient.class){
+				if(retrofit == null){
+					retrofit = new Retrofit.Builder()
+							.baseUrl(HttpUrl.BASE_URL)
+							.client(HttpManager.getOkHttpClient())
+							.addConverterFactory(GsonConverterFactory.create())
+							.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+							.build();
+				}
+			}
+		}
         return retrofit;
     }
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group >
+        <item android:id="@+id/menu_home"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="@string/app_name"/>
+    </group>
+</menu>

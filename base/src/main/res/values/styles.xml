@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/sp12</item>
+    </style>
+
+    <style name="Toolbar.MenuText" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">@dimen/sp12</item>
+    </style>
+</resources>

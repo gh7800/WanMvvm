@@ -1,24 +1,40 @@
 package cn.shineiot.wanmvvm.ui.login;
 
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
-
 import cn.shineiot.base.base.BaseResult;
+import cn.shineiot.base.utils.ToastUtils;
 import cn.shineiot.wanmvvm.bean.User;
 import cn.shineiot.wanmvvm.http.HttpClient;
+import cn.shineiot.wanmvvm.http.schedulers.SchedulerProvider;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author wangshuai
  */
-public class LoginRepository {
+class LoginRepository {
+	private Disposable disposable;
+	private MutableLiveData<BaseResult<User>> mLiveData = new MutableLiveData<>();
 
-	public MutableLiveData<BaseResult<User>> mLiveData = new MutableLiveData<>();
-
-	public MutableLiveData<BaseResult<User>> login(String username, String password) {
-		HttpClient.getInstance().login(username, password).observeForever(user -> Log.e("tag", user.getData().getNickname()));
+	MutableLiveData<BaseResult<User>> login(String username, String password) {
+		disposable = HttpClient.getInstance().login(username, password)
+//				.compose(ResponseTransformer.handleResult())
+				.compose(SchedulerProvider.getInstance().applySchedulers())
+				.subscribe(userBaseResult -> {
+					mLiveData.setValue(userBaseResult);
+				}, throwable -> {
+					ToastUtils.showToast(throwable.getMessage());
+				});
 		return mLiveData;
+	}
+
+	/**
+	 * 取消订阅
+	 */
+	void unSubscribe(){
+		if(disposable != null && disposable.isDisposed()){
+			disposable.dispose();
+		}
 	}
 }

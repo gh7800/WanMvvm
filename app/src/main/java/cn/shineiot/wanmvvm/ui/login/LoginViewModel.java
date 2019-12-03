@@ -1,8 +1,5 @@
 package cn.shineiot.wanmvvm.ui.login;
 
-import android.app.Application;
-
-
 import androidx.lifecycle.MutableLiveData;
 
 import cn.shineiot.base.base.BaseResult;
@@ -13,10 +10,21 @@ import cn.shineiot.wanmvvm.bean.User;
  * @author GF63
  */
 public class LoginViewModel extends BaseViewModel {
-	MutableLiveData<BaseResult<User>> liveData = new MutableLiveData<>();
+	private LoginRepository loginRepository;
 
 	public MutableLiveData<BaseResult<User>> login(String username, String password) {
-		LoginRepository loginRepository = new LoginRepository();
-		return loginRepository.login(username, password);
+		MutableLiveData<BaseResult<User>> liveData;
+
+		if (null == loginRepository) {
+			loginRepository = new LoginRepository();
+		}
+		liveData = loginRepository.login(username, password);
+		return liveData;
+	}
+
+	@Override
+	protected void onCleared() {
+		super.onCleared();
+		loginRepository.unSubscribe();
 	}
 }
