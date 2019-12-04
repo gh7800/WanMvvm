@@ -68,7 +68,7 @@ public class LogUtil {
 		if(null == obj) {
 			return;
 		}
-		Log.e(TAG, "" + obj);
+		Log.e(TAG, "" + buildMessage(obj));
 	}
 
 	public static void e(Throwable thr) {
@@ -80,24 +80,12 @@ public class LogUtil {
 		Log.e(TAG, buildMessage(msg), thr);
 	}
 
-	private static String buildMessage(String msg) {
+	private static String buildMessage(Object msg) {
 		StackTraceElement caller = new Throwable().fillInStackTrace().getStackTrace()[2];
-//        return caller.getFileName()
-//                + "." + caller.getMethodName()
-//                + "(): " + msg;
-		return msg;
+        return caller.getFileName()
+                + "." + caller.getMethodName()
+                + "(): " + msg;
+//		return msg;
 	}
 
-	/**
-	 * 判断是否是debug版本
-	 */
-	public static boolean isDebugVersion(Context context) {
-		try {
-			ApplicationInfo info = context.getApplicationInfo();
-			return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 }

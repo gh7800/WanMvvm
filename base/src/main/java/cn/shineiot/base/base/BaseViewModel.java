@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModel;
  */
 public class BaseViewModel<T extends BaseRepository> extends ViewModel {
 
-	@Override
+	/*@Override
 	protected void onCleared() {
 		super.onCleared();
 		Log.e("tag","base-onClear");
-	}
+	}*/
 }

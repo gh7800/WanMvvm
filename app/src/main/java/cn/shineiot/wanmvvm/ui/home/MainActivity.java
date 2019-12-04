@@ -1,12 +1,13 @@
 package cn.shineiot.wanmvvm.ui.home;
 
+import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,12 +18,12 @@ import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
 import cn.shineiot.base.base.BaseActivity;
-import cn.shineiot.base.utils.LogUtil;
 import cn.shineiot.wanmvvm.R;
 import cn.shineiot.wanmvvm.ui.fragments.BlogFragment;
-import cn.shineiot.wanmvvm.ui.fragments.HomeFragment;
+import cn.shineiot.wanmvvm.ui.fragments.homefragment.HomeFragment;
 import cn.shineiot.wanmvvm.ui.fragments.KnowledgeFragment;
 import cn.shineiot.wanmvvm.ui.fragments.NavigationFragment;
+import cn.shineiot.wanmvvm.ui.login.LoginActivity;
 
 /**
  * @author GF63
@@ -34,13 +35,14 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 	Toolbar toolbar;
 	@BindView(R.id.main_frameLayout)
 	FrameLayout mainFrameLayout;
+	@BindView(R.id.nav_drawerLayout)
+	DrawerLayout drawerLayout;
 	@BindView(R.id.nav_view)
 	NavigationView navView;
 	@BindView(R.id.main_bottomNavigationView)
 	BottomNavigationView bottomNavigationView;
 
 	private FragmentManager fragmentManager;
-	private FragmentTransaction fragmentTransaction;
 	private HomeFragment homeFragment;
 	private BlogFragment blogFragment;
 	private KnowledgeFragment knowledgeFragment;
@@ -61,31 +63,37 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 	protected void initView() {
 		setupToolbar_center(toolbar, "首页");
 		toolbar.setNavigationIcon(null);
+		addFragments();
 
-		bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-			@Override
-			public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
-				LogUtil.e(menuItem.getTitle());
-				switch (menuItem.getItemId()) {
-					case R.id.bottom_navigation_home:
-						switchContent(homeFragment);
-						break;
-					case R.id.bottom_navigation_blog:
-						switchContent(blogFragment);
-						break;
-					case R.id.bottom_navigation_knowledge:
-						switchContent(knowledgeFragment);
-						break;
-					case R.id.bottom_navigation_navigation:
-						switchContent(navigationFragment);
-						break;
-					default:
-						break;
-				}
+		bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+			switch (menuItem.getItemId()) {
+				case R.id.bottom_navigation_home:
+					switchContent(homeFragment);
+					break;
+				case R.id.bottom_navigation_blog:
+					switchContent(blogFragment);
+					break;
+				case R.id.bottom_navigation_knowledge:
+					switchContent(knowledgeFragment);
+					break;
+				case R.id.bottom_navigation_navigation:
+					switchContent(navigationFragment);
+					break;
+				default:
+					break;
 			}
+			drawerLayout.closeDrawers();
+			return true;
 		});
 
-		addFragments();
+		navView.setNavigationItemSelectedListener(menuItem -> {
+			Intent intent;
+			if (menuItem.getItemId() == R.id.menu_home) {
+				intent = new Intent(mContext, LoginActivity.class);
+				startActivity(intent);
+			}
+			return false;
+		});
 	}
 
 	private void addFragments() {
@@ -95,7 +103,7 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 		navigationFragment = new NavigationFragment();
 
 		fragmentManager = getSupportFragmentManager();
-		fragmentTransaction = fragmentManager.beginTransaction();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.main_frameLayout, homeFragment).commit();
 		currentFragment = homeFragment;
 	}
@@ -120,4 +128,10 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+
+		return true;
+	}
 }

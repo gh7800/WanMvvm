@@ -4,6 +4,7 @@ package cn.shineiot.wanmvvm.ui.login;
 import androidx.lifecycle.MutableLiveData;
 
 import cn.shineiot.base.base.BaseResult;
+import cn.shineiot.base.utils.LogUtil;
 import cn.shineiot.base.utils.ToastUtils;
 import cn.shineiot.wanmvvm.bean.User;
 import cn.shineiot.wanmvvm.http.HttpClient;
@@ -33,6 +34,7 @@ class LoginRepository {
 	 * 取消订阅
 	 */
 	void unSubscribe(){
+		LogUtil.e("unSubscribe");
 		if(disposable != null && disposable.isDisposed()){
 			disposable.dispose();
 		}

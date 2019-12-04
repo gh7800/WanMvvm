@@ -1,9 +1,9 @@
 package cn.shineiot.wanmvvm.ui.login;
 
 import androidx.lifecycle.MutableLiveData;
-
 import cn.shineiot.base.base.BaseResult;
 import cn.shineiot.base.base.BaseViewModel;
+import cn.shineiot.base.utils.LogUtil;
 import cn.shineiot.wanmvvm.bean.User;
 
 /**
@@ -25,6 +25,9 @@ public class LoginViewModel extends BaseViewModel {
 	@Override
 	protected void onCleared() {
 		super.onCleared();
-		loginRepository.unSubscribe();
+		LogUtil.e("----"+loginRepository);
+		if(loginRepository != null) {
+			loginRepository.unSubscribe();
+		}
 	}
 }

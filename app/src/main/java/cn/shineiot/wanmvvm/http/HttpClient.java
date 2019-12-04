@@ -1,9 +1,13 @@
 package cn.shineiot.wanmvvm.http;
 
 import androidx.lifecycle.LiveData;
+
+import cn.shineiot.base.base.BaseListResult;
 import cn.shineiot.base.base.BaseResult;
 import cn.shineiot.base.manager.HttpManager;
 import cn.shineiot.base.utils.HttpUrl;
+import cn.shineiot.wanmvvm.bean.AndroidArticle;
+import cn.shineiot.wanmvvm.bean.Banner;
 import cn.shineiot.wanmvvm.bean.User;
 import io.reactivex.Observable;
 import retrofit2.Retrofit;
@@ -13,6 +17,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * @author GF63
@@ -33,6 +38,9 @@ public interface HttpClient {
 	@POST("user/login")
 	Observable<BaseResult<User>> login(@Field("username")String username, @Field("password")String password);
 
-	@GET("api/")
-	LiveData<User> getBanner();
+	@GET("banner/json")
+	Observable<BaseListResult<Banner>> getBanner();
+
+	@GET("article/list/{page}/json")
+	Observable<BaseListResult<AndroidArticle>> getArticle(@Path("page")int page);
 }
